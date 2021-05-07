@@ -4,11 +4,13 @@ import HeaderComponent from "./HeaderComponent";
 import Banner from "../assets/banner.jpeg";
 import College from "../assets/college.jpg";
 import { Col, Container, Row } from "reactstrap";
-import { Avatar, Dialog, DialogTitle } from "@material-ui/core";
+import { Avatar, Dialog, DialogTitle, Tab, Tabs } from "@material-ui/core";
 
 import Logo from "../assets/logo.png";
 import { Search } from "@material-ui/icons";
 import SearchOptionsComponent from "./SearchOptionsComponent";
+
+import samp from "../assets/home.png";
 
 class HomeComponent extends Component {
   constructor(props) {
@@ -23,6 +25,8 @@ class HomeComponent extends Component {
       streamDialogOpen: false,
       collegeTypeDialogOpen: false,
 
+      selectedTab: 0,
+
       searchLocation: "",
       searchStream: "",
       searchFees: "",
@@ -30,6 +34,12 @@ class HomeComponent extends Component {
     };
     this.handleInputChange = this.handleInputChange.bind(this);
   }
+
+  handleTabs = (event, newValue) => {
+    this.setState({
+      selectedTab: newValue,
+    });
+  };
 
   handleDialogOpen = (key) => {
     this.setState({
@@ -69,6 +79,92 @@ class HomeComponent extends Component {
     this.setState({
       [key]: true,
     });
+  };
+
+  tabsData = () => {
+    return (
+      <div>
+        <Container>
+          <Row>
+            <Col sm className="HomeTabItem">
+              <div>
+                <img src={samp} />
+                <div>
+                  <h6>MBA Exams</h6>
+                  <p>50 + MBA exams. Do you know enough about them?</p>
+                </div>
+              </div>
+            </Col>
+            <Col sm className="HomeTabItem">
+              <div>
+                <img src={samp} />
+                <div>
+                  <h6>MBA Exams</h6>
+                  <p>50 + MBA exams. Do you know enough about them?</p>
+                </div>
+              </div>
+            </Col>
+            <Col sm className="HomeTabItem">
+              <div>
+                <img src={samp} />
+                <div>
+                  <h6>MBA Exams</h6>
+                  <p>50 + MBA exams. Do you know enough about them?</p>
+                </div>
+              </div>
+            </Col>
+            <Col sm className="HomeTabItem">
+              <div>
+                <img src={samp} />
+                <div>
+                  <h6>MBA Exams</h6>
+                  <p>50 + MBA exams. Do you know enough about them?</p>
+                </div>
+              </div>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col sm className="HomeTabItem">
+              <div>
+                <img src={samp} />
+                <div>
+                  <h6>MBA Exams</h6>
+                  <p>50 + MBA exams. Do you know enough about them?</p>
+                </div>
+              </div>
+            </Col>
+            <Col sm className="HomeTabItem">
+              <div>
+                <img src={samp} />
+                <div>
+                  <h6>MBA Exams</h6>
+                  <p>50 + MBA exams. Do you know enough about them?</p>
+                </div>
+              </div>
+            </Col>
+            <Col sm className="HomeTabItem">
+              <div>
+                <img src={samp} />
+                <div>
+                  <h6>MBA Exams</h6>
+                  <p>50 + MBA exams. Do you know enough about them?</p>
+                </div>
+              </div>
+            </Col>
+            <Col sm className="HomeTabItem">
+              <div>
+                <img src={samp} />
+                <div>
+                  <h6>MBA Exams</h6>
+                  <p>50 + MBA exams. Do you know enough about them?</p>
+                </div>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      </div>
+    );
   };
   render() {
     return (
@@ -158,6 +254,63 @@ class HomeComponent extends Component {
                     </Col>
                   </Row>
                 </div>
+              </div>
+
+              <div>
+                <div style={{ marginTop: "80px" }}>
+                  <Container>
+                    <Tabs
+                      value={this.state.selectedTab}
+                      onChange={this.handleTabs}
+                      TabIndicatorProps={{
+                        style: {
+                          backgroundColor: "#3F51B5",
+                        },
+                      }}
+                      centered
+                      variant="scrollable"
+                      scrollButtons="auto"
+                      style={{ color: "#0D47A1" }}
+                    >
+                      <Tab label="MBA" />
+                      <Tab label="BTECH" />
+                      <Tab label="MEDICAL" />
+                      <Tab label="DESIGN" />
+                      <Tab label="MORE" />
+                    </Tabs>
+                  </Container>
+                </div>
+
+                <Container>
+                  {this.state.selectedTab === 0 && (
+                    <div style={{ marginTop: "20px" }}>
+                      <this.tabsData />
+                    </div>
+                  )}
+
+                  {this.state.selectedTab === 1 && (
+                    <div style={{ marginTop: "20px" }}>
+                      <this.tabsData />
+                    </div>
+                  )}
+
+                  {this.state.selectedTab === 2 && (
+                    <div style={{ marginTop: "20px" }}>
+                      <this.tabsData />
+                    </div>
+                  )}
+
+                  {this.state.selectedTab === 3 && (
+                    <div style={{ marginTop: "20px" }}>
+                      <this.tabsData />
+                    </div>
+                  )}
+                  {this.state.selectedTab === 4 && (
+                    <div style={{ marginTop: "20px" }}>
+                      <this.tabsData />
+                    </div>
+                  )}
+                </Container>
               </div>
 
               <div className="HomeContentDiv">

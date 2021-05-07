@@ -4,10 +4,18 @@ import HeaderComponent from "./HeaderComponent";
 import Banner from "../assets/banner.jpeg";
 import College from "../assets/college.jpg";
 import { Col, Container, Row } from "reactstrap";
-import { Avatar, Dialog, DialogTitle } from "@material-ui/core";
+import {
+  Avatar,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  TextField,
+} from "@material-ui/core";
 
 import Logo from "../assets/logo.png";
 import { Search } from "@material-ui/icons";
+import { college_type, courses, fee, locations } from "../constants/options";
+import { Autocomplete } from "@material-ui/lab";
 
 class SearchOptionsComponent extends Component {
   constructor(props) {
@@ -22,13 +30,71 @@ class SearchOptionsComponent extends Component {
       streamDialogOpen: false,
       collegeTypeDialogOpen: false,
 
+      //Data
+      locations: locations,
+      courses: courses,
+      college_type: college_type,
+      fee: fee,
+
       searchLocation: "",
       searchStream: "",
-      searchFees: "",
+      searchFee: "",
       searchCollegeType: "",
     };
     this.handleInputChange = this.handleInputChange.bind(this);
   }
+
+  handleSubmit = () => {
+    var location =
+      this.state.searchLocation === null || this.state.searchLocation === ""
+        ? ""
+        : this.state.searchLocation;
+
+    var courses =
+      this.state.searchStream === null || this.state.searchStream === ""
+        ? ""
+        : this.state.searchStream;
+
+    var fee =
+      this.state.searchFee === null || this.state.searchFee === ""
+        ? ""
+        : this.state.searchFee.value;
+
+    var college_type =
+      this.state.searchCollegeType === null ||
+      this.state.searchCollegeType === ""
+        ? ""
+        : this.state.searchCollegeType.value;
+
+    window.location.href = `/listing?location=${location}&courses=${courses}&fee=${fee}&college_type=${college_type}`;
+  };
+
+  onLocationChange = (event, value) => {
+    this.setState({
+      searchLocation: value,
+    });
+    console.log(value);
+  };
+
+  onFeeChange = (event, value) => {
+    this.setState({
+      searchFee: value,
+    });
+    console.log(value);
+  };
+
+  onCollegTypeChange = (event, value) => {
+    this.setState({
+      searchCollegeType: value,
+    });
+    console.log(value);
+  };
+  onStreamChange = (event, value) => {
+    this.setState({
+      searchStream: value,
+    });
+    console.log(value);
+  };
 
   handleDialogOpen = (key) => {
     this.setState({
@@ -77,6 +143,23 @@ class SearchOptionsComponent extends Component {
           onClose={() => this.handleDialogClose("streamDialogOpen")}
         >
           <DialogTitle>Select a Stream</DialogTitle>
+          <DialogContent>
+            <div>
+              <Autocomplete
+                onChange={this.onStreamChange}
+                defaultChecked={this.state.searchStream}
+                options={this.state.courses}
+                getOptionLabel={(option) => option}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    variant="outlined"
+                    label={"Select a Stream"}
+                  />
+                )}
+              />
+            </div>
+          </DialogContent>
         </Dialog>
         <Dialog
           open={this.state.collegeTypeDialogOpen}
@@ -95,41 +178,54 @@ class SearchOptionsComponent extends Component {
                   sm
                   className="SearchItems SearchItemRightBorder"
                   id={this.state.locationSelected ? "Selected" : ""}
-                  onClick={() => this.handleSearchSelect("locationSelected")}
+                  // onClick={() => this.handleSearchSelect("locationSelected")}
                 >
                   <div>
                     <h6>
                       <b>Location</b>
                     </h6>
-                    {this.state.locationSelected ? (
-                      <input
-                        autoFocus
-                        placeholder="Where was the college?"
-                        id="SearchInputTag"
-                        value={this.state.searchLocation}
-                        name="searchLocation"
-                        onChange={this.handleInputChange}
+                    <div>
+                      <Autocomplete
+                        onChange={this.onLocationChange}
+                        defaultChecked={this.state.searchLocation}
+                        options={this.state.locations}
+                        getOptionLabel={(option) => option}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            variant="standard"
+                            label={"Select College location"}
+                          />
+                        )}
                       />
-                    ) : this.state.searchLocation.trim().length > 0 ? (
-                      <p>
-                        <b>{this.state.searchLocation}</b>
-                      </p>
-                    ) : (
-                      <p>Where was the College?</p>
-                    )}
+                    </div>
                   </div>
                 </Col>
                 <Col
                   sm
                   className="SearchItems SearchItemRightBorder"
                   id={this.state.streamSelected ? "Selected" : ""}
-                  onClick={() => this.handleSearchSelect("streamSelected")}
+                  // onClick={() => this.handleSearchSelect("streamSelected")}
                 >
                   <div>
                     <h6>
                       <b>Stream</b>
                     </h6>
-                    <p>Select a stream</p>
+                    <div>
+                      <Autocomplete
+                        onChange={this.onStreamChange}
+                        defaultChecked={this.state.searchStream}
+                        options={this.state.courses}
+                        getOptionLabel={(option) => option}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            variant="standard"
+                            label={"Select a Stream"}
+                          />
+                        )}
+                      />
+                    </div>
                   </div>
                 </Col>
                 <Col
@@ -142,39 +238,52 @@ class SearchOptionsComponent extends Component {
                     <h6>
                       <b>Fees</b>
                     </h6>
-                    {this.state.feesSelected ? (
-                      <input
-                        autoFocus
-                        placeholder="₹ Enter College fee"
-                        id="SearchInputTag"
-                        value={this.state.searchFees}
-                        name="searchFees"
-                        onChange={this.handleInputChange}
+                    <div>
+                      <Autocomplete
+                        onChange={this.onFeeChange}
+                        defaultChecked={this.state.searchFee}
+                        options={this.state.fee}
+                        getOptionLabel={(option) => option.name}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            variant="standard"
+                            label={"Select Fee"}
+                          />
+                        )}
                       />
-                    ) : this.state.searchFees.trim().length > 0 ? (
-                      <p>
-                        <b>{"₹ " + this.state.searchFees}</b>
-                      </p>
-                    ) : (
-                      <p>₹ Enter College fee</p>
-                    )}
+                    </div>
                   </div>
                 </Col>
                 <Col
                   sm
                   className="SearchItems"
                   id={this.state.collegeTypeSelected ? "Selected" : ""}
-                  onClick={() => this.handleSearchSelect("collegeTypeSelected")}
+                  // onClick={() => this.handleSearchSelect("collegeTypeSelected")}
                 >
                   <div>
                     <h6>
                       <b>College Type</b>
                     </h6>
-                    <p>Select College type</p>
+                    <div>
+                      <Autocomplete
+                        onChange={this.onCollegTypeChange}
+                        defaultChecked={this.state.searchCollegeType}
+                        options={this.state.college_type}
+                        getOptionLabel={(option) => option.name}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            variant="standard"
+                            label={"Select College Type"}
+                          />
+                        )}
+                      />
+                    </div>
                   </div>
                 </Col>
                 <Col sm="1" className="SearchItems">
-                  <div className="SearchIconDiv">
+                  <div className="SearchIconDiv" id="SearchIDDiv" onClick={this.handleSubmit}>
                     <Search />
                   </div>
                 </Col>
