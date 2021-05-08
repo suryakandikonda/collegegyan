@@ -73,6 +73,11 @@ class ListingComponent extends Component {
       .catch((error) => console.log("error", error));
   };
   componentDidMount() {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
     var queryStr = {
       location: "",
       courses: "",
@@ -139,6 +144,9 @@ class ListingComponent extends Component {
                         <Col sm="8" className="nopadding">
                           <div className="ListItemRightDiv">
                             <h3>{item.name}</h3>
+                            <p>
+                              {item.city}, {item.state}, {item.country}
+                            </p>
                             <p>Average fee: ₹ {item.average_fees}</p>
                             <h6>Rating:</h6>
                             <Rating

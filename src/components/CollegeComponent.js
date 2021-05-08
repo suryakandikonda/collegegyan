@@ -5,6 +5,7 @@ import { Col, Container, Row } from "reactstrap";
 import { Rating } from "@material-ui/lab";
 import { Fade } from "react-awesome-reveal";
 import { Tab, Tabs } from "@material-ui/core";
+import LoadingComponent from "./LoadingComponent";
 
 class CollegeComponent extends Component {
   constructor(props) {
@@ -12,6 +13,8 @@ class CollegeComponent extends Component {
     this.state = {
       id: this.props.match.params.id,
       selectedTab: 0,
+
+      isLoading: true,
 
       data: undefined,
     };
@@ -37,9 +40,15 @@ class CollegeComponent extends Component {
         console.log(result);
         this.setState({
           data: result.data,
+          isLoading: false,
         });
       })
-      .catch((error) => console.log("error", error));
+      .catch((error) => {
+        console.log("error", error);
+        this.setState({
+          isLoading: false,
+        });
+      });
   };
   componentDidMount() {
     window.scroll({
@@ -50,6 +59,13 @@ class CollegeComponent extends Component {
     this.getDetails();
   }
   render() {
+    if (this.state.isLoading) {
+      return (
+        <React.Fragment>
+          <LoadingComponent page="college" />
+        </React.Fragment>
+      );
+    }
     return (
       <React.Fragment>
         <HeaderComponent showDefaultHeader={true} />

@@ -282,8 +282,16 @@ class SearchOptionsComponent extends Component {
                     </div>
                   </div>
                 </Col>
-                <Col sm="1" className="SearchItems">
-                  <div className="SearchIconDiv" id="SearchIDDiv" onClick={this.handleSubmit}>
+                <Col
+                  sm="1"
+                  className="SearchItems"
+                  style={{ textAlign: "center" }}
+                >
+                  <div
+                    className="SearchIconDiv"
+                    id="SearchIDDiv"
+                    onClick={this.handleSubmit}
+                  >
                     <Search />
                   </div>
                 </Col>

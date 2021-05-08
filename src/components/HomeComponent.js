@@ -194,12 +194,12 @@ class HomeComponent extends Component {
                 <SearchOptionsComponent />
               </Container>
             </div>
-            <div class="top-left">
+            <div class="top-left d-none d-sm-block">
               <img src={Logo} className="img-fluid" />
               {/* <h1 className="h1">
                 College <br /> Gyan
               </h1> */}
-              <h6>Caption here</h6>
+              {/* <h6>Caption here</h6> */}
             </div>
           </div>
 

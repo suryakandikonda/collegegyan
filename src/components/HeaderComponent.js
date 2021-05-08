@@ -4,7 +4,7 @@ import {
   DialogTitle,
   TextField,
 } from "@material-ui/core";
-import { Close, Search } from "@material-ui/icons";
+import { Close, Menu, Search } from "@material-ui/icons";
 import { Autocomplete } from "@material-ui/lab";
 import React, { Component } from "react";
 import { Bounce, Fade, Flip } from "react-awesome-reveal";
@@ -34,6 +34,8 @@ class HeaderComponent extends Component {
       //Dialogs
       streamDialogOpen: false,
       collegeTypeDialogOpen: false,
+      //
+      mobileDialogOpen: false,
 
       //Data
       locations: locations,
@@ -47,6 +49,18 @@ class HeaderComponent extends Component {
 
     this.handleInputChange = this.handleInputChange.bind(this);
   }
+
+  handleMobileDialogOpen = () => {
+    this.setState({
+      mobileDialogOpen: true,
+    });
+  };
+
+  handleMobileDialogClose = () => {
+    this.setState({
+      mobileDialogOpen: false,
+    });
+  };
 
   onLocationChange = (event, value) => {
     this.setState({
@@ -102,15 +116,18 @@ class HeaderComponent extends Component {
   };
 
   componentDidMount() {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
     window.addEventListener("scroll", () => {
       var y = window.scrollY;
       if (y >= 200) {
-        console.log("Scrolled");
         this.setState({
           show: true,
         });
       } else {
-        console.log("Back to normal");
         this.setState({
           show: false,
           showOptions: false,
@@ -138,6 +155,24 @@ class HeaderComponent extends Component {
   render() {
     return (
       <React.Fragment>
+        <Dialog open={this.state.mobileDialogOpen} fullScreen>
+          <DialogContent>
+            <div className="MobileDialogMainDiv">
+              <div
+                style={{ textAlign: "right", margin: "0px", padding: "10px" }}
+              >
+                <Close
+                  onClick={this.handleMobileDialogClose}
+                  style={{ color: "white" }}
+                  fontSize="large"
+                />
+              </div>
+              <div>
+                <this.TopDarkNav />
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
         <Dialog
           open={this.state.streamDialogOpen}
           onClose={() => this.handleDialogClose("streamDialogOpen")}
@@ -169,13 +204,43 @@ class HeaderComponent extends Component {
           <DialogContent></DialogContent>
         </Dialog>
         <div className="HeaderMainDivPC">
-          <this.TopDarkNav />
+          <div className="d-none d-sm-block">
+            <this.TopDarkNav />
+          </div>
+          <div className="d-block d-sm-none" style={{ margin: "10px" }}>
+            <Container fluid>
+              <Row>
+                <Col sm xs>
+                  <div>
+                    <Link to="/home">
+                      <img
+                        src={Logo}
+                        className="img-fluid"
+                        style={{ width: "100px" }}
+                      />
+                    </Link>
+                  </div>
+                </Col>
+                <Col sm xs>
+                  <div></div>
+                </Col>
+                <Col sm xs>
+                  <div style={{ marginTop: "10px", textAlign: "right" }}>
+                    <Menu
+                      fontSize="large"
+                      onClick={this.handleMobileDialogOpen}
+                    />
+                  </div>
+                </Col>
+              </Row>
+            </Container>
+          </div>
           {(this.state.show || this.state.showDefaultHeader === true) && (
-            <Fade direction="down" className=" fixed-top">
+            <div className="animated fadeInDown fixed-top">
               <div className="HeaderStickyDiv">
                 <Container fluid>
                   <Row>
-                    <Col sm>
+                    <Col sm xs>
                       <Link to="/home">
                         <div>
                           <img
@@ -186,7 +251,7 @@ class HeaderComponent extends Component {
                         </div>
                       </Link>
                     </Col>
-                    <Col sm>
+                    <Col sm xs>
                       {this.state.showOptions ? (
                         <div
                           style={{ textAlign: "center" }}
@@ -199,7 +264,7 @@ class HeaderComponent extends Component {
                           <Close />
                         </div>
                       ) : (
-                        <Fade>
+                        <div className="animated fadeIn">
                           <div
                             className="HeaderSearchDiv"
                             onClick={() =>
@@ -209,19 +274,19 @@ class HeaderComponent extends Component {
                             }
                           >
                             <Row>
-                              <Col sm>
+                              <Col sm xs="7">
                                 <div style={{ marginTop: "10px" }}>
                                   <h5>Search</h5>
                                 </div>
                               </Col>
-                              <Col sm="2">
+                              <Col sm="2" xs="2">
                                 <div className="SearchIconDiv">
                                   <Search />
                                 </div>
                               </Col>
                             </Row>
                           </div>
-                        </Fade>
+                        </div>
                       )}
                     </Col>
                     <Col sm>
@@ -237,7 +302,7 @@ class HeaderComponent extends Component {
                   )}
                 </Container>
               </div>
-            </Fade>
+            </div>
           )}
         </div>
       </React.Fragment>

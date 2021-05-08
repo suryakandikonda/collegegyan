@@ -31,16 +31,16 @@ class FooterComponent extends Component {
                 <Col sm></Col>
                 <Col sm>
                   <Row>
-                    <Col sm>
+                    <Col sm xs>
                       <Facebook />
                     </Col>
-                    <Col sm>
+                    <Col sm xs>
                       <Instagram />
                     </Col>
-                    <Col sm>
+                    <Col sm xs>
                       <LinkedIn />
                     </Col>
-                    <Col sm>
+                    <Col sm xs>
                       <Twitter />
                     </Col>
                   </Row>

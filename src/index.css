@@ -53,7 +53,8 @@ h5 p {
   padding: 0px !important;
 }
 
-.HeaderNavDiv {
+.HeaderNavDiv,
+.MobileDialogMainDiv {
   background-color: #222222;
 }
 
@@ -67,7 +68,7 @@ h5 p {
   margin-top: 10px;
   background-color: white;
   border-radius: 30px;
-  padding: 5px 20px;
+  padding: 3px 15px;
   cursor: pointer;
   color: black;
   border: 2px solid #e0e0e0;
@@ -202,10 +203,24 @@ h5 p {
   display: inline-block;
   padding: 10px;
   border-radius: 50%;
+  text-align: center;
+}
+
+@media (max-width: 576px) {
+  .SearchIconDiv {
+    margin-top: 4px;
+    background-image: linear-gradient(#f12711, #f5af19);
+    color: white;
+    display: inline-block;
+    padding: 5px;
+    border-radius: 50%;
+    text-align: center;
+  }
 }
 
 #SearchIDDiv {
   margin-top: 10px;
+  text-align: center;
 }
 
 .ListingHeadingDiv {
@@ -237,6 +252,13 @@ h5 p {
 
 .ListItemRightDiv {
   margin-left: 20px;
+}
+
+@media (max-width: 576px) {
+  .ListItemRightDiv {
+    text-align: center;
+    margin: 4px;
+  }
 }
 .CollegeContentDiv {
   margin-top: 100px;
@@ -294,6 +316,13 @@ h5 p {
   margin: 10px;
 }
 
+@media (max-width: 576px) {
+  .HomeTabItem {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+
 .FooterMainDiv {
   background-color: #f7f7f7;
   padding-top: 40px;
@@ -322,12 +351,26 @@ h5 p {
 .Navcontainer a {
   color: #fff !important;
   text-decoration: none;
-  font: 20px Raleway;
+  font: 15px Raleway;
   margin: 0px 10px;
   padding: 10px 10px;
   position: relative;
   z-index: 0;
   cursor: pointer;
+}
+
+@media (max-width: 576px) {
+  .Navcontainer a {
+    color: #fff !important;
+    text-decoration: none;
+    font: 30px Raleway;
+    margin: 10px 10px;
+    display: block;
+    padding: 10px 10px;
+    position: relative;
+    z-index: 0;
+    cursor: pointer;
+  }
 }
 
 div.borderYtoX a:before,
