@@ -4,13 +4,22 @@ import HeaderComponent from "./HeaderComponent";
 import Banner from "../assets/banner.jpeg";
 import College from "../assets/college.jpg";
 import { Col, Container, Row } from "reactstrap";
-import { Avatar, Dialog, DialogTitle, Tab, Tabs } from "@material-ui/core";
+import {
+  Avatar,
+  Button,
+  Dialog,
+  DialogTitle,
+  Tab,
+  Tabs,
+} from "@material-ui/core";
 
 import Logo from "../assets/logo.png";
 import { Search } from "@material-ui/icons";
 import SearchOptionsComponent from "./SearchOptionsComponent";
 
 import samp from "../assets/home.png";
+import { APIURL } from "../constants/APIURL";
+import LogoLoadingComponent from "./LogoLoadingComponent";
 
 class HomeComponent extends Component {
   constructor(props) {
@@ -20,6 +29,8 @@ class HomeComponent extends Component {
       streamSelected: false,
       feesSelected: false,
       collegeTypeSelected: false,
+
+      isLoading: true,
 
       //Dialogs
       streamDialogOpen: false,
@@ -31,8 +42,71 @@ class HomeComponent extends Component {
       searchStream: "",
       searchFees: "",
       searchCollegeType: "",
+
+      //
+      featuredColleges: [],
+      testimonials: [],
+      banners: [],
     };
     this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  getBanners = () => {
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+
+    fetch(APIURL + "home_banner_slides", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+        this.setState({
+          banners: result.data,
+          isLoading: false,
+        });
+      })
+      .catch((error) => console.log("error", error));
+  };
+
+  getFeaturedColleges = () => {
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+
+    fetch(APIURL + "featured_colleges", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+        this.setState({
+          featuredColleges: result.data,
+        });
+      })
+      .catch((error) => console.log("error", error));
+  };
+
+  getTestimonials = () => {
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+
+    fetch(APIURL + "testimonals", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+        this.setState({
+          testimonials: result.data,
+        });
+      })
+      .catch((error) => console.log("error", error));
+  };
+
+  componentDidMount() {
+    this.getFeaturedColleges();
+    this.getTestimonials();
+    this.getBanners();
   }
 
   handleTabs = (event, newValue) => {
@@ -167,6 +241,13 @@ class HomeComponent extends Component {
     );
   };
   render() {
+    if (this.state.isLoading) {
+      return (
+        <React.Fragment>
+          <LogoLoadingComponent />
+        </React.Fragment>
+      );
+    }
     return (
       <React.Fragment>
         <Dialog
@@ -183,7 +264,7 @@ class HomeComponent extends Component {
         </Dialog>
         <HeaderComponent />
         <div>
-          <div className="HomeBannerMainDiv">
+          {/* <div className="HomeBannerMainDiv">
             <img
               src={Banner}
               alt="Snow"
@@ -196,10 +277,78 @@ class HomeComponent extends Component {
             </div>
             <div class="top-left d-none d-sm-block">
               <img src={Logo} className="img-fluid" />
-              {/* <h1 className="h1">
-                College <br /> Gyan
-              </h1> */}
-              {/* <h6>Caption here</h6> */}
+              
+            </div>
+          </div> */}
+
+          <div style={{ marginTop: "20px" }}>
+            <div
+              id="carouselExampleCaptions"
+              class="carousel slide"
+              data-bs-ride="carousel"
+            >
+              <div class="carousel-inner">
+                {this.state.banners.length > 0 &&
+                  this.state.banners.map((item, index) => (
+                    <div
+                      class={
+                        index === 0 ? "carousel-item active" : "carousel-item"
+                      }
+                      style={{ maxHeight: "500px" }}
+                    >
+                      <img src={item.image} class="d-block w-100" alt="..." />
+                      <div class="carousel-caption">
+                        {index === 0 && (
+                          <img
+                            src={Logo}
+                            className="img-fluid"
+                            id="HomeBannerLogoImg"
+                          />
+                        )}
+                        <br />
+                        <h5>{item.title}</h5>
+                        <p>{item.sub_text}</p>
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          size="small"
+                        >
+                          <a
+                            id="NoHoverLink"
+                            href={item.link_url}
+                            style={{ color: "white" }}
+                          >
+                            {item.link_text}
+                          </a>
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+              <button
+                class="carousel-control-prev"
+                type="button"
+                data-bs-target="#carouselExampleCaptions"
+                data-bs-slide="prev"
+              >
+                <span
+                  class="carousel-control-prev-icon"
+                  aria-hidden="true"
+                ></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button
+                class="carousel-control-next"
+                type="button"
+                data-bs-target="#carouselExampleCaptions"
+                data-bs-slide="next"
+              >
+                <span
+                  class="carousel-control-next-icon"
+                  aria-hidden="true"
+                ></span>
+                <span class="visually-hidden">Next</span>
+              </button>
             </div>
           </div>
 
@@ -213,45 +362,22 @@ class HomeComponent extends Component {
                 </div>
                 <div className="HomeItemsMainDiv">
                   <Row>
-                    <Col sm>
-                      <div className="HomeItemDiv">
-                        <img
-                          src={College}
-                          className="img-fluid"
-                          id="HomeItemImg"
-                        />
-                        <h5 className="h5" style={{ marginTop: "10px" }}>
-                          <b>Indian Indian of Technology, Mumbai</b>
-                        </h5>
-                        <p>Caption here</p>
-                      </div>
-                    </Col>
-                    <Col sm>
-                      <div className="HomeItemDiv">
-                        <img
-                          src={College}
-                          className="img-fluid"
-                          id="HomeItemImg"
-                        />
-                        <h5 className="h5" style={{ marginTop: "10px" }}>
-                          <b>Indian Indian of Technology, Mumbai</b>
-                        </h5>
-                        <p>Caption here</p>
-                      </div>
-                    </Col>
-                    <Col sm>
-                      <div className="HomeItemDiv">
-                        <img
-                          src={College}
-                          className="img-fluid"
-                          id="HomeItemImg"
-                        />
-                        <h5 className="h5" style={{ marginTop: "10px" }}>
-                          <b>Indian Indian of Technology, Mumbai</b>
-                        </h5>
-                        <p>Caption here</p>
-                      </div>
-                    </Col>
+                    {this.state.featuredColleges.length > 0 &&
+                      this.state.featuredColleges.map((item) => (
+                        <Col sm>
+                          <div className="HomeItemDiv">
+                            <img
+                              src={item.image}
+                              className="img-fluid"
+                              id="HomeItemImg"
+                            />
+                            <h5 className="h5" style={{ marginTop: "10px" }}>
+                              <b>{item.title}</b>
+                            </h5>
+                            <p>{item.location}</p>
+                          </div>
+                        </Col>
+                      ))}
                   </Row>
                 </div>
               </div>
@@ -321,45 +447,22 @@ class HomeComponent extends Component {
                 </div>
                 <div className="HomeItemsMainDiv">
                   <Row>
-                    <Col sm>
-                      <div className="HomeItemDivTesti">
-                        <img
-                          src={College}
-                          className="img-fluid"
-                          id="HomeItemImgTesti"
-                        />
-                        <h5 className="h5" style={{ marginTop: "10px" }}>
-                          <b>Bob Alice</b>
-                        </h5>
-                        <p>It's an great application!. </p>
-                      </div>
-                    </Col>
-                    <Col sm>
-                      <div className="HomeItemDivTesti">
-                        <img
-                          src={College}
-                          className="img-fluid"
-                          id="HomeItemImgTesti"
-                        />
-                        <h5 className="h5" style={{ marginTop: "10px" }}>
-                          <b>Bob Alice</b>
-                        </h5>
-                        <p>It's an great application!. </p>
-                      </div>
-                    </Col>
-                    <Col sm>
-                      <div className="HomeItemDivTesti">
-                        <img
-                          src={College}
-                          className="img-fluid"
-                          id="HomeItemImgTesti"
-                        />
-                        <h5 className="h5" style={{ marginTop: "10px" }}>
-                          <b>Bob Alice</b>
-                        </h5>
-                        <p>It's an great application!. </p>
-                      </div>
-                    </Col>
+                    {this.state.testimonials.length > 0 &&
+                      this.state.testimonials.map((item) => (
+                        <Col sm>
+                          <div className="HomeItemDivTesti">
+                            <img
+                              src={item.image}
+                              className="img-fluid"
+                              id="HomeItemImgTesti"
+                            />
+                            <h5 className="h5" style={{ marginTop: "10px" }}>
+                              <b>{item.name}</b>
+                            </h5>
+                            <p>{item.message}</p>
+                          </div>
+                        </Col>
+                      ))}
                   </Row>
                 </div>
               </div>

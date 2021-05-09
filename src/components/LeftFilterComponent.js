@@ -5,6 +5,9 @@ import Banner from "../assets/banner.jpeg";
 import College from "../assets/college.jpg";
 import { Col, Container, Row } from "reactstrap";
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Avatar,
   Dialog,
   DialogContent,
@@ -13,11 +16,11 @@ import {
 } from "@material-ui/core";
 
 import Logo from "../assets/logo.png";
-import { Search } from "@material-ui/icons";
+import { ExpandMore, Search } from "@material-ui/icons";
 import { college_type, courses, fee, locations } from "../constants/options";
 import { Autocomplete } from "@material-ui/lab";
 
-class SearchOptionsComponent extends Component {
+class LeftFilterComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -138,45 +141,49 @@ class SearchOptionsComponent extends Component {
   render() {
     return (
       <React.Fragment>
-        <Dialog
-          open={this.state.streamDialogOpen}
-          onClose={() => this.handleDialogClose("streamDialogOpen")}
-        >
-          <DialogTitle>Select a Stream</DialogTitle>
-          <DialogContent>
-            <div>
-              <Autocomplete
-                onChange={this.onStreamChange}
-                defaultChecked={this.state.searchStream}
-                options={this.state.courses}
-                getOptionLabel={(option) => option}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    variant="outlined"
-                    label={"Select a Stream"}
+        <Accordion className="sticky">
+          <AccordionSummary
+            expandIcon={<ExpandMore />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <h5>Filters</h5>
+          </AccordionSummary>
+          <AccordionDetails style={{ width: "100%" }}>
+            <Dialog
+              open={this.state.streamDialogOpen}
+              onClose={() => this.handleDialogClose("streamDialogOpen")}
+            >
+              <DialogTitle>Select a Stream</DialogTitle>
+              <DialogContent>
+                <div>
+                  <Autocomplete
+                    onChange={this.onStreamChange}
+                    defaultChecked={this.state.searchStream}
+                    options={this.state.courses}
+                    getOptionLabel={(option) => option}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        variant="outlined"
+                        label={"Select a Stream"}
+                      />
+                    )}
                   />
-                )}
-              />
-            </div>
-          </DialogContent>
-        </Dialog>
-        <Dialog
-          open={this.state.collegeTypeDialogOpen}
-          onClose={() => this.handleDialogClose("collegeTypeDialogOpen")}
-        >
-          <DialogTitle>Select College Type</DialogTitle>
-        </Dialog>
-        <Row>
-          <Col sm>
-            <div></div>
-          </Col>
-          <Col sm="10" className="HomeSearchDiv">
-            <div className="">
-              <Row>
-                <Col
-                  sm
-                  className="SearchItems SearchItemRightBorder"
+                </div>
+              </DialogContent>
+            </Dialog>
+            <Dialog
+              open={this.state.collegeTypeDialogOpen}
+              onClose={() => this.handleDialogClose("collegeTypeDialogOpen")}
+            >
+              <DialogTitle>Select College Type</DialogTitle>
+            </Dialog>
+
+            <div className="container-fluid">
+              <div>
+                <div
+                  className="SearchItems "
                   id={this.state.locationSelected ? "Selected" : ""}
                   // onClick={() => this.handleSearchSelect("locationSelected")}
                 >
@@ -200,10 +207,9 @@ class SearchOptionsComponent extends Component {
                       />
                     </div>
                   </div>
-                </Col>
-                <Col
-                  sm
-                  className="SearchItems SearchItemRightBorder"
+                </div>
+                <div
+                  className="SearchItems "
                   id={this.state.streamSelected ? "Selected" : ""}
                   // onClick={() => this.handleSearchSelect("streamSelected")}
                 >
@@ -227,10 +233,9 @@ class SearchOptionsComponent extends Component {
                       />
                     </div>
                   </div>
-                </Col>
-                {/* <Col
-                  sm
-                  className="SearchItems SearchItemRightBorder"
+                </div>
+                <div
+                  className="SearchItems "
                   id={this.state.feesSelected ? "Selected" : ""}
                   onClick={() => this.handleSearchSelect("feesSelected")}
                 >
@@ -254,9 +259,8 @@ class SearchOptionsComponent extends Component {
                       />
                     </div>
                   </div>
-                </Col> */}
-                {/* <Col
-                  sm
+                </div>
+                <div
                   className="SearchItems"
                   id={this.state.collegeTypeSelected ? "Selected" : ""}
                   // onClick={() => this.handleSearchSelect("collegeTypeSelected")}
@@ -281,12 +285,8 @@ class SearchOptionsComponent extends Component {
                       />
                     </div>
                   </div>
-                </Col> */}
-                <Col
-                  sm="1"
-                  className="SearchItems"
-                  style={{ textAlign: "center" }}
-                >
+                </div>
+                <div className="SearchItems" style={{ textAlign: "center" }}>
                   <div
                     className="SearchIconDiv"
                     id="SearchIDDiv"
@@ -294,17 +294,14 @@ class SearchOptionsComponent extends Component {
                   >
                     <Search />
                   </div>
-                </Col>
-              </Row>
+                </div>
+              </div>
             </div>
-          </Col>
-          <Col sm>
-            <div></div>
-          </Col>
-        </Row>
+          </AccordionDetails>
+        </Accordion>
       </React.Fragment>
     );
   }
 }
 
-export default SearchOptionsComponent;
+export default LeftFilterComponent;

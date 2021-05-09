@@ -48,7 +48,7 @@ h1,
 h2,
 h3,
 h4,
-h5 p {
+h5, p {
   margin: 0px !important;
   padding: 0px !important;
 }
@@ -152,6 +152,7 @@ h5 p {
 #HomeItemImg {
   border-radius: 10px;
   width: 400px;
+  height: 200px;
 }
 
 #HomeItemImgTesti {
@@ -399,4 +400,41 @@ div.borderYtoX a:hover:after {
   opacity: 1;
   height: 2px;
   width: 100%;
+}
+
+#HomeBannerLogoImg {
+  width: 400px;
+}
+
+@media (max-width: 600px) {
+  #HomeBannerLogoImg {
+    width: 100px;
+  }
+}
+
+.stage {
+  
+  display: flex;
+  
+  width: 100%;
+  margin-top: 180px;
+  margin-bottom: 350px;
+}
+.box {
+  align-self: flex-end;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  height: 200px;
+  margin: 0 auto 0 auto;
+  transform-origin: bottom;
+  
+}
+.bounce-1 {
+  animation-name: bounce-1;
+  animation-timing-function: linear;
+}
+@keyframes bounce-1 {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-40px); }
+  100% { transform: translateY(0); }
 }

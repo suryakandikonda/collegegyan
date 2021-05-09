@@ -6,6 +6,7 @@ import { Rating } from "@material-ui/lab";
 import { Fade } from "react-awesome-reveal";
 import { Tab, Tabs } from "@material-ui/core";
 import LoadingComponent from "./LoadingComponent";
+import { APIURL } from "../constants/APIURL";
 
 class CollegeComponent extends Component {
   constructor(props) {
@@ -32,7 +33,7 @@ class CollegeComponent extends Component {
     };
 
     fetch(
-      "http://college-gyan.com/api/college_info?id=" + this.state.id,
+      APIURL + "college_info?id=" + this.state.id,
       requestOptions
     )
       .then((response) => response.json())

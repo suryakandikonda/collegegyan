@@ -9,6 +9,14 @@ class LoadingComponent extends Component {
       page: this.props.page,
     };
   }
+
+  componentDidMount() {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  }
   render() {
     return (
       <React.Fragment>

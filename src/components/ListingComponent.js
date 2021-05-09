@@ -8,6 +8,8 @@ import { Link } from "react-router-dom";
 import { ArrowDownward, ExpandMore } from "@material-ui/icons";
 import LoadingComponent from "./LoadingComponent";
 import { LinearProgress } from "@material-ui/core";
+import LeftFilterComponent from "./LeftFilterComponent";
+import { APIURL } from "../constants/APIURL";
 const queryString = require("query-string");
 
 class ListingComponent extends Component {
@@ -45,7 +47,8 @@ class ListingComponent extends Component {
     console.log(this.state.searchParam);
 
     fetch(
-      "http://college-gyan.com/api/listing?courses=" +
+      APIURL +
+        "listing?courses=" +
         query.courses +
         "&rating=" +
         query.rating +
@@ -116,75 +119,92 @@ class ListingComponent extends Component {
       <React.Fragment>
         <HeaderComponent showDefaultHeader={true} />
         <div className="ListingMainDiv">
-          <Container>
-            <div className="ListingHeadingDiv">
-              <h1 className="h1">
-                {this.state.test}
-                <b>Colleges</b>
-              </h1>
-              <p>You can filter using the Search bar above..</p>
-            </div>
-            <div className="ListingItemsMainDiv">
-              {this.state.data.length === 0 ? (
-                <h3>No Colleges to show</h3>
-              ) : (
-                this.state.data.map((item) => (
-                  <Link to={`/college/${item.id}`} id="NoHoverLink">
-                    <div className="ListingItemsDiv">
-                      <Row>
-                        <Col sm className="">
-                          <div style={{ textAlign: "center" }}>
-                            <img
-                              src={College}
-                              className="img-fluid"
-                              id="ListItemImg"
-                            />
+          <Container fluid>
+            <Row>
+              <Col sm="3">
+                <div style={{ marginTop: "100px" }}>
+                  <LeftFilterComponent />
+                </div>
+              </Col>
+              <Col sm>
+                <Container fluid>
+                  <div className="ListingHeadingDiv">
+                    <h1 className="h1">
+                      {this.state.test}
+                      <b>Colleges</b>
+                    </h1>
+                    <p>You can filter using the Search bar above..</p>
+                  </div>
+                  <div className="ListingItemsMainDiv">
+                    {this.state.data.length === 0 ? (
+                      <h3>No Colleges to show</h3>
+                    ) : (
+                      this.state.data.map((item) => (
+                        <Link to={`/college/${item.id}`} id="NoHoverLink">
+                          <div className="ListingItemsDiv">
+                            <Row>
+                              <Col sm className="">
+                                <div style={{ textAlign: "center" }}>
+                                  <img
+                                    src={College}
+                                    className="img-fluid"
+                                    id="ListItemImg"
+                                  />
+                                </div>
+                              </Col>
+                              <Col sm="8" className="nopadding">
+                                <div className="ListItemRightDiv">
+                                  <h3>{item.name}</h3>
+                                  <p>
+                                    {item.city}, {item.state}, {item.country}
+                                  </p>
+                                  <p>Average fee: ₹ {item.average_fees}</p>
+                                  <h6>Rating:</h6>
+                                  <Rating
+                                    value={item.rating}
+                                    precision={0.1}
+                                    readOnly
+                                  />
+                                </div>
+                              </Col>
+                              <Col sm className="nopadding"></Col>
+                            </Row>
                           </div>
-                        </Col>
-                        <Col sm="8" className="nopadding">
-                          <div className="ListItemRightDiv">
-                            <h3>{item.name}</h3>
-                            <p>
-                              {item.city}, {item.state}, {item.country}
-                            </p>
-                            <p>Average fee: ₹ {item.average_fees}</p>
-                            <h6>Rating:</h6>
-                            <Rating
-                              value={item.rating}
-                              precision={0.1}
-                              readOnly
-                            />
-                          </div>
-                        </Col>
-                        <Col sm className="nopadding"></Col>
-                      </Row>
-                    </div>
-                  </Link>
-                ))
-              )}
-            </div>
+                        </Link>
+                      ))
+                    )}
+                  </div>
 
-            {this.state.fetching ? (
-              <div className="EndOfPageDiv">
-                <LinearProgress
-                  style={{ backgroundColor: "#FFAB91", color: "#F4511E" }}
-                />
-                <br />
-                <h5>Loading more colleges...</h5>
-              </div>
-            ) : this.state.currentPage !== this.state.lastPage ? (
-              <div
-                className="LoadMoreDiv"
-                onClick={() => this.getCollegeList(this.state.searchParam)}
-              >
-                <h5>Click to load more data</h5>
-                <ExpandMore />
-              </div>
-            ) : (
-              <div className="EndOfPageDiv">
-                <h5>You are reached to end of the page</h5>
-              </div>
-            )}
+                  {this.state.fetching ? (
+                    <div className="EndOfPageDiv">
+                      <LinearProgress
+                        style={{ backgroundColor: "#FFAB91", color: "#F4511E" }}
+                      />
+                      <br />
+                      <h5>Loading more colleges...</h5>
+                    </div>
+                  ) : this.state.currentPage !== this.state.lastPage ? (
+                    <div
+                      className="LoadMoreDiv"
+                      onClick={() =>
+                        this.getCollegeList(this.state.searchParam)
+                      }
+                    >
+                      <h5>Click to load more data</h5>
+                      <ExpandMore />
+                    </div>
+                  ) : (
+                    <div className="EndOfPageDiv">
+                      <h5>You are reached to end of the page</h5>
+                    </div>
+                  )}
+                </Container>
+              </Col>
+
+              {/* <Col sm>
+                <div></div>
+              </Col> */}
+            </Row>
           </Container>
         </div>
       </React.Fragment>
