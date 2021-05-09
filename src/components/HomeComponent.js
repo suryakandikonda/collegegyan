@@ -20,6 +20,7 @@ import SearchOptionsComponent from "./SearchOptionsComponent";
 import samp from "../assets/home.png";
 import { APIURL } from "../constants/APIURL";
 import LogoLoadingComponent from "./LogoLoadingComponent";
+import LeftFilterComponent from "./LeftFilterComponent";
 
 class HomeComponent extends Component {
   constructor(props) {
@@ -104,6 +105,11 @@ class HomeComponent extends Component {
   };
 
   componentDidMount() {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
     this.getFeaturedColleges();
     this.getTestimonials();
     this.getBanners();
@@ -281,7 +287,7 @@ class HomeComponent extends Component {
             </div>
           </div> */}
 
-          <div style={{ marginTop: "20px" }}>
+          <div style={{ marginTop: "0px" }}>
             <div
               id="carouselExampleCaptions"
               class="carousel slide"
@@ -297,7 +303,10 @@ class HomeComponent extends Component {
                       style={{ maxHeight: "500px" }}
                     >
                       <img src={item.image} class="d-block w-100" alt="..." />
-                      <div class="carousel-caption">
+                      <div class="carousel-content">
+                        <div className="d-none d-sm-block">
+                          <SearchOptionsComponent isHomePage={true} />
+                        </div>
                         {index === 0 && (
                           <img
                             src={Logo}
@@ -380,6 +389,13 @@ class HomeComponent extends Component {
                       ))}
                   </Row>
                 </div>
+              </div>
+
+              <div style={{ marginTop: "60px" }} className="d-block d-sm-none">
+                <h6 style={{ marginBottom: "40px" }} className="h6">
+                  Search Colleges:
+                </h6>
+                <LeftFilterComponent />
               </div>
 
               <div>

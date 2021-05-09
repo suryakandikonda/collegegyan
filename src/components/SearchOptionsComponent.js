@@ -26,6 +26,8 @@ class SearchOptionsComponent extends Component {
       feesSelected: false,
       collegeTypeSelected: false,
 
+      isHomePage: this.props.isHomePage,
+
       //Dialogs
       streamDialogOpen: false,
       collegeTypeDialogOpen: false,
@@ -228,60 +230,64 @@ class SearchOptionsComponent extends Component {
                     </div>
                   </div>
                 </Col>
-                {/* <Col
-                  sm
-                  className="SearchItems SearchItemRightBorder"
-                  id={this.state.feesSelected ? "Selected" : ""}
-                  onClick={() => this.handleSearchSelect("feesSelected")}
-                >
-                  <div>
-                    <h6>
-                      <b>Fees</b>
-                    </h6>
-                    <div>
-                      <Autocomplete
-                        onChange={this.onFeeChange}
-                        defaultChecked={this.state.searchFee}
-                        options={this.state.fee}
-                        getOptionLabel={(option) => option.name}
-                        renderInput={(params) => (
-                          <TextField
-                            {...params}
-                            variant="standard"
-                            label={"Select Fee"}
+                {this.state.isHomePage === true && (
+                  <React.Fragment>
+                    <Col
+                      sm
+                      className="SearchItems SearchItemRightBorder"
+                      id={this.state.feesSelected ? "Selected" : ""}
+                      onClick={() => this.handleSearchSelect("feesSelected")}
+                    >
+                      <div>
+                        <h6>
+                          <b>Fees</b>
+                        </h6>
+                        <div>
+                          <Autocomplete
+                            onChange={this.onFeeChange}
+                            defaultChecked={this.state.searchFee}
+                            options={this.state.fee}
+                            getOptionLabel={(option) => option.name}
+                            renderInput={(params) => (
+                              <TextField
+                                {...params}
+                                variant="standard"
+                                label={"Select Fee"}
+                              />
+                            )}
                           />
-                        )}
-                      />
-                    </div>
-                  </div>
-                </Col> */}
-                {/* <Col
-                  sm
-                  className="SearchItems"
-                  id={this.state.collegeTypeSelected ? "Selected" : ""}
-                  // onClick={() => this.handleSearchSelect("collegeTypeSelected")}
-                >
-                  <div>
-                    <h6>
-                      <b>College Type</b>
-                    </h6>
-                    <div>
-                      <Autocomplete
-                        onChange={this.onCollegTypeChange}
-                        defaultChecked={this.state.searchCollegeType}
-                        options={this.state.college_type}
-                        getOptionLabel={(option) => option.name}
-                        renderInput={(params) => (
-                          <TextField
-                            {...params}
-                            variant="standard"
-                            label={"Select College Type"}
+                        </div>
+                      </div>
+                    </Col>
+                    <Col
+                      sm
+                      className="SearchItems"
+                      id={this.state.collegeTypeSelected ? "Selected" : ""}
+                      // onClick={() => this.handleSearchSelect("collegeTypeSelected")}
+                    >
+                      <div>
+                        <h6>
+                          <b>College Type</b>
+                        </h6>
+                        <div>
+                          <Autocomplete
+                            onChange={this.onCollegTypeChange}
+                            defaultChecked={this.state.searchCollegeType}
+                            options={this.state.college_type}
+                            getOptionLabel={(option) => option.name}
+                            renderInput={(params) => (
+                              <TextField
+                                {...params}
+                                variant="standard"
+                                label={"Select College Type"}
+                              />
+                            )}
                           />
-                        )}
-                      />
-                    </div>
-                  </div>
-                </Col> */}
+                        </div>
+                      </div>
+                    </Col>
+                  </React.Fragment>
+                )}
                 <Col
                   sm="1"
                   className="SearchItems"
