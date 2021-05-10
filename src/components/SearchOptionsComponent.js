@@ -179,6 +179,21 @@ class SearchOptionsComponent extends Component {
                 <Col
                   sm
                   className="SearchItems SearchItemRightBorder"
+                  // id={this.state.locationSelected ? "Selected" : ""}
+                  // onClick={() => this.handleSearchSelect("locationSelected")}
+                >
+                  <div>
+                    <h6>
+                      <b>College Name</b>
+                    </h6>
+                    <div>
+                      <TextField variant="standard" label={"College Name"} />
+                    </div>
+                  </div>
+                </Col>
+                <Col
+                  sm
+                  className="SearchItems SearchItemRightBorder"
                   id={this.state.locationSelected ? "Selected" : ""}
                   // onClick={() => this.handleSearchSelect("locationSelected")}
                 >
@@ -196,7 +211,7 @@ class SearchOptionsComponent extends Component {
                           <TextField
                             {...params}
                             variant="standard"
-                            label={"Select College location"}
+                            label={"Location"}
                           />
                         )}
                       />
@@ -223,7 +238,7 @@ class SearchOptionsComponent extends Component {
                           <TextField
                             {...params}
                             variant="standard"
-                            label={"Select a Stream"}
+                            label={"Stream"}
                           />
                         )}
                       />
@@ -252,7 +267,7 @@ class SearchOptionsComponent extends Component {
                               <TextField
                                 {...params}
                                 variant="standard"
-                                label={"Select Fee"}
+                                label={"Fee"}
                               />
                             )}
                           />
@@ -279,7 +294,7 @@ class SearchOptionsComponent extends Component {
                               <TextField
                                 {...params}
                                 variant="standard"
-                                label={"Select College Type"}
+                                label={"College Type"}
                               />
                             )}
                           />

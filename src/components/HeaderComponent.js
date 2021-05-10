@@ -140,7 +140,54 @@ class HeaderComponent extends Component {
     return (
       <div className="HeaderNavDiv">
         <div class="Navcontainer teal borderYtoX">
-          <a>MBA</a>
+          <span class="dropdown">
+            <a class="dropbtn">MBA</a>
+
+            <div class="dropdown-content">
+              <Row>
+                <Col sm>
+                  <div>
+                    <div className="DropDownContentGreenHeading">
+                      <h5>Top Ranked Colleges</h5>
+                    </div>
+                    <div className="DropDownItemsMainDiv">
+                      <h6>Top MBA Colleges in India</h6>
+                      <h6>Top MBA Colleges in Bangalore</h6>
+                      <h6>Top MBA Colleges in India</h6>
+                      <h6>Top MBA Colleges in Bangalore</h6>
+                    </div>
+                  </div>
+                </Col>
+                <Col sm>
+                  <div>
+                    <div className="DropDownContentGreenHeading">
+                      <h5>Popular Courses</h5>
+                    </div>
+                    <div className="DropDownItemsMainDiv">
+                      <h6>Top MBA Colleges in India</h6>
+                      <h6>Top MBA Colleges in Bangalore</h6>
+                      <h6>Top MBA Colleges in India</h6>
+                      <h6>Top MBA Colleges in Bangalore</h6>
+                    </div>
+                  </div>
+                </Col>
+                <Col sm>
+                  <div>
+                    <div className="DropDownContentGreenHeading">
+                      <h5>Exams</h5>
+                    </div>
+                    <div className="DropDownItemsMainDiv">
+                      <h6>Top MBA Colleges in India</h6>
+                      <h6>Top MBA Colleges in Bangalore</h6>
+                      <h6>Top MBA Colleges in India</h6>
+                      <h6>Top MBA Colleges in Bangalore</h6>
+                    </div>
+                  </div>
+                </Col>
+              </Row>
+            </div>
+          </span>
+
           <a>ENGINEERING</a>
           <a>MEDICAL</a>
           <a>DESIGN</a>

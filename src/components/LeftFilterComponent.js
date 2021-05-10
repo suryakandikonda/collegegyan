@@ -182,6 +182,12 @@ class LeftFilterComponent extends Component {
 
             <div className="container-fluid">
               <div>
+                <div className="SearchItems">
+                  <h6>
+                    <b>College Name</b>
+                  </h6>
+                  <TextField variant="standard" label={"College Name"} />
+                </div>
                 <div
                   className="SearchItems "
                   id={this.state.locationSelected ? "Selected" : ""}

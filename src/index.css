@@ -460,3 +460,75 @@ div.borderYtoX a:hover:after {
   -webkit-text-stroke-width: 0.5px;
   -webkit-text-stroke-color: black;
 }
+
+.NotificationsMainDiv {
+  background-color: #f5f5f5;
+  padding: 20px;
+}
+
+@media (max-width: 576px) {
+  .NotificationsMainDiv {
+    background-color: #f5f5f5;
+    padding: 40px;
+    text-align: center;
+  }
+}
+
+/*  */
+
+.dropdown {
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  width: 800px;
+  right: 0;
+  left: 0;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 30;
+  padding: 20px;
+  transition: all 3s ease;
+  -webkit-transition: all 3s ease;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+  transition: all 3s ease;
+  -webkit-transition: all 3s ease;
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+}
+
+.DropDownContentGreenHeading {
+  background-color: #eeeeee;
+  color: black;
+  padding: 3px 4px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.DropDownItemsMainDiv h6 {
+  font-family: "Lato";
+  cursor: pointer;
+  padding: 10px;
+  margin: 10px;
+}
+
+.DropDownItemsMainDiv h6:hover {
+  background-color: #e0e0e0;
+  border-left: #89c74a 4px solid;
+}

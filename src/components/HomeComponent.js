@@ -14,7 +14,7 @@ import {
 } from "@material-ui/core";
 
 import Logo from "../assets/logo.png";
-import { Search } from "@material-ui/icons";
+import { LocalActivity, LocationOn, Search } from "@material-ui/icons";
 import SearchOptionsComponent from "./SearchOptionsComponent";
 
 import samp from "../assets/home.png";
@@ -48,6 +48,7 @@ class HomeComponent extends Component {
       featuredColleges: [],
       testimonials: [],
       banners: [],
+      notifications: [],
     };
     this.handleInputChange = this.handleInputChange.bind(this);
   }
@@ -65,6 +66,23 @@ class HomeComponent extends Component {
         this.setState({
           banners: result.data,
           isLoading: false,
+        });
+      })
+      .catch((error) => console.log("error", error));
+  };
+
+  getNotifications = () => {
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+
+    fetch(APIURL + "home_notifications", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+        this.setState({
+          notifications: result.data,
         });
       })
       .catch((error) => console.log("error", error));
@@ -112,6 +130,7 @@ class HomeComponent extends Component {
     });
     this.getFeaturedColleges();
     this.getTestimonials();
+    this.getNotifications();
     this.getBanners();
   }
 
@@ -304,9 +323,17 @@ class HomeComponent extends Component {
                     >
                       <img src={item.image} class="d-block w-100" alt="..." />
                       <div class="carousel-content">
-                        <div className="d-none d-sm-block">
-                          <SearchOptionsComponent isHomePage={true} />
-                        </div>
+                        <Container fluid>
+                          <Row>
+                            <Col sm></Col>
+                            <Col sm="8">
+                              <div className="d-none d-sm-block">
+                                <SearchOptionsComponent isHomePage={true} />
+                              </div>
+                            </Col>
+                            <Col sm></Col>
+                          </Row>
+                        </Container>
                         {index === 0 && (
                           <img
                             src={Logo}
@@ -361,6 +388,40 @@ class HomeComponent extends Component {
             </div>
           </div>
 
+          <div className="NotificationsMainDiv">
+            {this.state.notifications.length > 0 && (
+              <Container fluid>
+                <Row>
+                  {this.state.notifications.map((item) => (
+                    <Col sm xs="5">
+                      <Row>
+                        <Col sm>
+                          <div>
+                            <img
+                              src={item.image}
+                              style={{ width: "80px", maxHeight: "80px" }}
+                            />
+                          </div>
+                        </Col>
+                        <Col sm="8" className="nopadding">
+                          <div>
+                            <h6 className="h6">{item.title}</h6>
+                            <p style={{ fontSize: "12px" }}>{item.sub_text}</p>
+                            <p style={{ fontSize: "12px" }}>
+                              <LocationOn fontSize="small" /> {item.location}
+                            </p>
+                            <a href={item.link_url}>{item.link_text}</a>
+                          </div>
+                        </Col>
+                        <Col sm></Col>
+                      </Row>
+                    </Col>
+                  ))}
+                </Row>
+              </Container>
+            )}
+          </div>
+
           <Container>
             <div className="HomeContentMainDiv">
               <div className="HomeContentDiv">
@@ -391,12 +452,12 @@ class HomeComponent extends Component {
                 </div>
               </div>
 
-              <div style={{ marginTop: "60px" }} className="d-block d-sm-none">
+              {/* <div style={{ marginTop: "60px" }} className="d-block d-sm-none">
                 <h6 style={{ marginBottom: "40px" }} className="h6">
                   Search Colleges:
                 </h6>
                 <LeftFilterComponent />
-              </div>
+              </div> */}
 
               <div>
                 <div style={{ marginTop: "80px" }}>
